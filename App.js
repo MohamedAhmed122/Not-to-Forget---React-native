@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import AppButton from './App/Components/AppButton/AppButton';
 import AppTextInput from './App/Components/AppTextInput/AppTextInput'
-import LoginScreen from './App/Screens/LoginScreen/LoginScreen'
+import LoginScreen from './App/Screens/LoginScreen'
 
 export default function App() {
   return (
