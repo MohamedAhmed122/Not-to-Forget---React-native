@@ -17,9 +17,6 @@ const validationSchema = Yup.object().shape({
 
 const LoginScreen = () => {
 
-
-
-  
     return ( 
         <View style={styles.screen}>
             <View style={styles.container}>
@@ -56,8 +53,8 @@ const LoginScreen = () => {
                 <View style={styles.textContainer}>
                     <AppText style={styles.text}>
                         you don't have Account?
-                    
-                    </AppText><AppLink>Register</AppLink>
+                    </AppText>
+                    <AppLink>Register</AppLink>
                 </View>
             </View>
         </View>
