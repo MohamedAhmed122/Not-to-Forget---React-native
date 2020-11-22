@@ -20,8 +20,9 @@ export default function AppTextInput({label}) {
 
 const styles = StyleSheet.create({
     input:{
-        width: '95%',
-        marginLeft: 10,
-        marginTop:15
-    }
+        width: '92%',
+        marginLeft: '4%',
+        marginTop:15,
+        borderRadius:15
+}
 })
