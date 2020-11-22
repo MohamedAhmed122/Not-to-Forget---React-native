@@ -15,7 +15,7 @@ const validationSchema = Yup.object().shape({
     password: Yup.string().required().min(6).label('Password')
 })
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
 
     return ( 
         <View style={styles.screen}>
@@ -54,7 +54,7 @@ const LoginScreen = () => {
                     <AppText style={styles.text}>
                         you don't have Account?
                     </AppText>
-                    <AppLink>Register</AppLink>
+                <AppLink onPress={()=>navigation.navigate('Register')} >Register</AppLink>
                 </View>
             </View>
         </View>
