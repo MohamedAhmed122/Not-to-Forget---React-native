@@ -2,18 +2,17 @@ import React, {useState} from 'react'
 import { TextInput } from 'react-native-paper';
 import { StyleSheet, } from 'react-native'
 
-export default function AppTextInput({label}) {
-    const [text, setText] = useState('');
+export default function AppTextInput({label,onChangeText, ...otherProps}) {
 
   return (
     <TextInput
       label={label}
       mode='outlined'
-      value={text}
-      onChangeText={text => setText(text)}
+      onChangeText={onChangeText}
       selectionColor='black'
       underlineColor='black'
       style={styles.input}
+      { ...otherProps}
     />
   );
 }
