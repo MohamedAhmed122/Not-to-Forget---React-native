@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Constants from "expo-constants";
-import { Image, StyleSheet, Text, View } from 'react-native'
-import AppText from '../Components/AppText/AppText';
+import { StyleSheet, View } from 'react-native'
 import AddButton from '../Components/AddButton/AddButton';
 import ListingsEmpty from '../Components/Listings/ListingsEmpty';
 import Lisitings from '../Components/Listings/Lisitings';
@@ -10,18 +9,12 @@ const LisitingsScreen = () => {
     const [listings, setListings] = useState(false)
     return (
         <View style={styles.screen}> 
-        {
-            listings ? 
-            <ListingsEmpty /> 
-            :
-            
-            <Lisitings />
-        }
-       
-        <View style={styles.btnContainer}>
-            <AddButton />
-        </View>
-       
+            {
+                listings ?  <ListingsEmpty /> :<Lisitings />
+            }
+            <View style={styles.btnContainer}>
+                <AddButton />
+            </View>
         </View>
     )
 }

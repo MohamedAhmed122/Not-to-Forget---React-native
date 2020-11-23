@@ -2,12 +2,12 @@ import React, {useState} from 'react'
 import { TextInput } from 'react-native-paper';
 import { StyleSheet, } from 'react-native'
 
-export default function AppTextInput({label,onChangeText, ...otherProps}) {
+export default function AppTextInput({label, mode ,onChangeText, ...otherProps}) {
 
   return (
     <TextInput
       label={label}
-      mode='outlined'
+      mode={mode}
       onChangeText={onChangeText}
       selectionColor='black'
       underlineColor='black'

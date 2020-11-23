@@ -12,6 +12,7 @@ const AppFormField = ({name, ...otherProps}) => {
             <AppTextInput 
                 onChangeText={handleChange(name)}
                 onBlur={()=>setFieldTouched(name)}
+                mode='outlined'
                 {...otherProps}
             />
             <ErrorMessage isTouched={touched[name]} error={errors[name]}/>
