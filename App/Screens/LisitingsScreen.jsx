@@ -5,7 +5,7 @@ import AddButton from '../Components/AddButton/AddButton';
 import ListingsEmpty from '../Components/Listings/ListingsEmpty';
 import Lisitings from '../Components/Listings/Lisitings';
 
-const LisitingsScreen = () => {
+const LisitingsScreen = ({navigation}) => {
     const [listings, setListings] = useState(false)
     return (
         <View style={styles.screen}> 
@@ -13,7 +13,7 @@ const LisitingsScreen = () => {
                 listings ?  <ListingsEmpty /> :<Lisitings />
             }
             <View style={styles.btnContainer}>
-                <AddButton />
+                <AddButton  onPress={() => navigation.navigate('Create Listings')} />
             </View>
         </View>
     )

@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { color } from 'react-native-reanimated'
@@ -6,6 +7,7 @@ import AppText from '../AppText/AppText'
 import List from './List'
 
 const Lisitings = () => {
+    const navigation = useNavigation()
     return (
         <View>
            <AppText style={styles.text}>Work</AppText>
@@ -13,6 +15,7 @@ const Lisitings = () => {
                Listings.map(item =>(
                    item.category ==='Work' &&
                    <List 
+                        onPress={()=>navigation.navigate('View Listings', item)}
                         key={item.id.toString()}
                         title={item.title}
                         subTitle={item.subtitle}
@@ -24,6 +27,7 @@ const Lisitings = () => {
                Listings.map(item =>(
                    item.category ==='study' &&
                    <List 
+                        onPress={()=>navigation.navigate('View Listings', item)}
                         key={item.id.toString()}
                         title={item.title}
                         subTitle={item.subtitle}
@@ -55,6 +59,8 @@ const Listings =[
         'rem, ipsum dolor sit amet consectetur adipisicing elit. Laborum sequi inventore at, rem quibusdam perferendis sed! Sapiente, repellendus, ratione in laudantium at architecto molestiae asperiores porro aspernatur cum, reprehenderit maiores?',
         color: secondary,
         category: 'study',
+        date:'21.09.2020',
+        priorty:'urget'
     },
     {
         id: 2,
@@ -64,7 +70,10 @@ const Listings =[
         'rem, ipsum dolor sit amet consectetur adipisicing elit. Laborum sequi inventore at, rem quibusdam perferendis sed! Sapiente, repellendus, ratione in laudantium at architecto molestiae asperiores porro aspernatur cum, reprehenderit maiores?',
         color: danger,
         category: 'study',
-    },
+        date:'20.12.2020',
+        priorty:'Not Very Urgent'
+    }
+    ,
     {
         id: 3,
         title: 'Work in university',
@@ -73,6 +82,9 @@ const Listings =[
         'rem, ipsum dolor sit amet consectetur adipisicing elit. Laborum sequi inventore at, rem quibusdam perferendis sed! Sapiente, repellendus, ratione in laudantium at architecto molestiae asperiores porro aspernatur cum, reprehenderit maiores?',
         color: green,
         category: 'Work',
+        date:'04.09.2019',
+        priorty:'Later'
+
     },
     {
         id: 4,
@@ -82,5 +94,8 @@ const Listings =[
         'rem, ipsum dolor sit amet consectetur adipisicing elit. Laborum sequi inventore at, rem quibusdam perferendis sed! Sapiente, repellendus, ratione in laudantium at architecto molestiae asperiores porro aspernatur cum, reprehenderit maiores?',
         color: yellow,
         category: 'Work',
+        date:'02.02.2020',
+        priorty:'Later'
+
     },
 ]

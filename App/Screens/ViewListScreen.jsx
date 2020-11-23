@@ -4,28 +4,29 @@ import Constants from "expo-constants";
 import AppText from '../Components/AppText/AppText'
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-import { gray, green, secondary } from '../Config/Colors';
+import {  green, secondary } from '../Config/Colors';
 
-const ViewListScreen = () => {
+const ViewListScreen = ({route}) => {
+    const item = route.params
     return (
         <View style={styles.screen}>
             <View style={styles.container}>
                 <View>
-                    <AppText style={styles.mainText}>Title</AppText>
-                    <AppText style={styles.subText}>SubTitle</AppText>
+                    <AppText style={styles.mainText}>{item.title}</AppText>
+                    <AppText style={styles.subText}>{item.subtitle}</AppText>
                 </View>
                 <View>
                     <AntDesign name="edit" size={30} color={secondary} />
                     <AppText style={styles.status}>Done</AppText>
                 </View>
             </View>
-                <AppText style={styles.text}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio modi repellat ut tempora atque quis, doloribus, perferendis vero repudiandae ducimus itaque harum error nesciunt earum culpa est, porro hic aspernatur.</AppText>
+                <AppText style={styles.text}>{item.descripation}</AppText>
                 <View style={styles.container}>
                     <View style={{flexDirection:'row'}}>
                         <MaterialIcons name="access-time" size={24} color="black" />
-                        <AppText style={styles.subText}>from 12.12.2020</AppText>
+                        <AppText style={styles.subText}>from {item.date}</AppText>
                     </View>
-                    <AppText>urgent</AppText>
+                    <AppText>{item.priorty}</AppText>
                 </View>
             
         </View>

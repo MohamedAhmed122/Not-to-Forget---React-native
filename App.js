@@ -12,16 +12,19 @@ import LoginScreen from './App/Screens/LoginScreen';
 import AppPicker from './App/Components/AppPicker/AppPicker';
 import AppTextInput from './App/Components/AppTextInput/AppTextInput';
 import CreateListScreen from './App/Screens/CreateListScreen';
+import AppNavigation from './App/Navigation/AppNavigation';
 
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    // <View style={styles.container}>
       <>
+        <NavigationContainer>
+          <AppNavigation />
 
-        <CreateListScreen />
+        </NavigationContainer>
       </>
-    </View>
+    // </View>
   );
 }
 

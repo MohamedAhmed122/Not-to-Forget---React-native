@@ -125,8 +125,8 @@ const priorties =[
     },
     {
         id:2,
-        label: 'Later',
-        color: yellow
+        label: 'Important',
+        color: secondary
     },
     {
         id:3,
@@ -135,7 +135,7 @@ const priorties =[
     },
     {
         id:4,
-        label: 'Important',
-        color: secondary
+        label: 'Later',
+        color: yellow
     },
 ]
