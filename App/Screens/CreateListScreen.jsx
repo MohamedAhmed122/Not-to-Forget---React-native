@@ -4,12 +4,13 @@ import { StyleSheet, View } from 'react-native'
 import Constants from "expo-constants";
 import * as Yup from 'yup'
 
-import AppText from '../Components/AppText/AppText'
 import AppForm from '../Components/Form/AppForm'
 import AppFormField from '../Components/Form/AppFormField'
 import AppSubmitButton from '../Components/Form/AppSubmitButton'
-import AppLink from '../Components/AppLink/AppLink';
 import AppFormPicker from '../Components/Form/AppFormPicker';
+
+import {danger, green, secondary, yellow} from '../Config/Colors'
+
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required() ,
@@ -53,9 +54,13 @@ const CreateListScreen = ({navigation}) => {
                             name='date'
                             icon="calendar-plus-o"  />
 
-                        <AppFormPicker placeholder='Category' name='category' icon="plus-square-o"/>
+                        <AppFormPicker 
+                        categories={categories}
+                        placeholder='Category' name='category' icon="plus-square-o"/>
 
-                        <AppFormPicker placeholder='Priority' name='priorty'/>
+                        <AppFormPicker 
+                        categories={priorties}
+                        placeholder='Priority' name='priorty'  />
 
                         <View style={styles.btnContainer}/>
                         <AppSubmitButton 
@@ -92,3 +97,45 @@ const styles = StyleSheet.create({
         marginTop:15,
     }
 })
+
+const categories =[
+    {
+        id:1,
+        label: 'Study',
+    },
+    {
+        id:2,
+        label: 'Work',
+    },
+    {
+        id:3,
+        label: 'Sport',
+    },
+    {
+        id:4,
+        label: 'Rest',
+    },
+]
+
+const priorties =[
+    {
+        id:1,
+        label: 'urgent',
+        color: danger
+    },
+    {
+        id:2,
+        label: 'Later',
+        color: yellow
+    },
+    {
+        id:3,
+        label: 'Not Vey urgent',
+        color: green
+    },
+    {
+        id:4,
+        label: 'Important',
+        color: secondary
+    },
+]
