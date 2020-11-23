@@ -10,12 +10,12 @@ import AppSubmitButton from '../Components/Form/AppSubmitButton'
 import AppFormPicker from '../Components/Form/AppFormPicker';
 
 import {danger, green, secondary, yellow} from '../Config/Colors'
+import AppDatePicker from '../Components/AppDatePicker/AppDatePicker';
 
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required() ,
     description: Yup.string().required().max(120),
-    date:Yup.string().required() ,
     category:Yup.string().required() ,
     priorty: Yup.string().required() ,
 })
@@ -48,11 +48,7 @@ const CreateListScreen = ({navigation}) => {
                             name='description'
                             mode='outlined'
                         />
-
-                        <AppFormField 
-                            label='completion date' 
-                            name='date'
-                            icon="calendar-plus-o"  />
+                        <AppDatePicker  name='date' />
 
                         <AppFormPicker 
                         categories={categories}

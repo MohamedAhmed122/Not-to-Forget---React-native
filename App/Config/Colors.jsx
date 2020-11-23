@@ -10,4 +10,4 @@ export const danger ='#FF685C'
 
 export const white ='#fff'
 
-export const gray ='#EFEFEF'
+export const gray ='#EFEFEF' 

@@ -22,15 +22,15 @@ import AppDatePicker from './App/Components/AppDatePicker/AppDatePicker';
 export default function App() {
   const [check, setCheck] = useState(false)
   return (
-    <View style={styles.container}>
+    // <View style={styles.container}>
       
-        {/* <NavigationContainer>
+        <NavigationContainer>
           <AppNavigation />
 
-         </NavigationContainer> */}
-         <AppDatePicker />
+         </NavigationContainer>
+   
       
-     </View>
+    //  </View>
   );
 }
 
