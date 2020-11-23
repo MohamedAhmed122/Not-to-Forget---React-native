@@ -4,7 +4,7 @@ import { StyleSheet, View, } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons';
 import { secondary } from '../../Config/Colors';
 
-export default function AppTextInput({icon, label, mode ,onChangeText, ...otherProps}) {
+export default function AppTextInput({icon, label, mode, onPress ,onChangeText, ...otherProps}) {
 
   return (
     <View style={styles.container}>
@@ -17,7 +17,7 @@ export default function AppTextInput({icon, label, mode ,onChangeText, ...otherP
         style={styles.input}
         { ...otherProps}
       />
-    {icon &&  <FontAwesome style={styles.icon} name={icon} size={32} color={secondary} />}
+    {icon &&  <FontAwesome onPress={onPress} style={styles.icon} name={icon} size={32} color={secondary} />}
     </View>
 
   );

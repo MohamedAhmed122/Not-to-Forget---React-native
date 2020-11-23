@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import {  primary } from '../../Config/Colors'
 import AppText from '../AppText/AppText'
@@ -7,7 +7,6 @@ import setColor from '../../Config/colorUtility'
 import List from './List'
 
 const Lisitings = () => {
-
     const navigation = useNavigation()
    
     return (
@@ -21,7 +20,8 @@ const Lisitings = () => {
                         key={item.id.toString()}
                         title={item.title}
                         subTitle={item.subtitle}
-                        color={setColor(item.priorty)}/>
+                        color={setColor(item.priorty)} 
+                        />
                ))
            }
            <AppText style={styles.text}>Study</AppText>
@@ -33,7 +33,9 @@ const Lisitings = () => {
                         key={item.id.toString()}
                         title={item.title}
                         subTitle={item.subtitle}
-                        color={setColor(item.priorty)}/>
+                        color={setColor(item.priorty)}
+                       
+                        />
                ))
             }
           

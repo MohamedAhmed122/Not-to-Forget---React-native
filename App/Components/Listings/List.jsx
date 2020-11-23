@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { white, yellow } from '../../Config/Colors'
+import StatusContext from '../../Status/Context'
 import AppCheckbox from '../AppCheckbox/AppCheckbox'
 import AppText from '../AppText/AppText'
 
 const List = ({color, title, subTitle, onPress}) => {
+    
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={[styles.container, {backgroundColor: color}]}>
@@ -14,7 +16,7 @@ const List = ({color, title, subTitle, onPress}) => {
                     <AppText style={styles.subText}>{subTitle}</AppText>
                 </View>
                 <View style={styles.check}>
-                    <AppCheckbox  color={color}/>
+                    <AppCheckbox color={color}/>
                 </View>
             </View>
         </TouchableWithoutFeedback>

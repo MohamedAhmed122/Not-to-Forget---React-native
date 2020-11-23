@@ -82,9 +82,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width:'100%',
     },
-    container:{
-        top: 90,
-    },
     btnContainer:{
         marginTop:40,
     },
