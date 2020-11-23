@@ -43,22 +43,25 @@ const RegisterScreen = ({navigation}) => {
                             autCorrect={false}
                             keyboardType='email-address'
                             textContentType='emailAddress'
+                            mode='outlined'
                         />
-                         <AppFormField  name='name' label='Name'/>
+                         <AppFormField   mode='outlined' name='name' label='Name'/>
                         <AppFormField 
                             label='Password'
                             autoCapitalize='none'
                             autCorrect={false}
-                            // textContentType='password'
-                            // secureTextEntry
+                            mode='outlined'
+                            textContentType='password'
+                            secureTextEntry
                             name='password'
                         />
                          <AppFormField 
                             label='Confirm Password'
                             autoCapitalize='none'
                             autCorrect={false}
-                            // textContentType='password'
-                            // secureTextEntry
+                            mode='outlined'
+                            textContentType='password'
+                            secureTextEntry
                             name='confirmPassword'
                         />
                         <View style={styles.btnContainer}></View>

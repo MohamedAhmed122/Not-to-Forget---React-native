@@ -9,21 +9,19 @@ import AppCheckbox from './App/Components/AppCheckbox/AppCheckbox';
 import List from './App/Components/Listings/List'
 import ViewListScreen from './App/Screens/ViewListScreen';
 import LoginScreen from './App/Screens/LoginScreen';
+import AppPicker from './App/Components/AppPicker/AppPicker';
+import AppTextInput from './App/Components/AppTextInput/AppTextInput';
+import CreateListScreen from './App/Screens/CreateListScreen';
 
 
 export default function App() {
   return (
     <View style={styles.container}>
-    <>
+      <>
 
-      {/* <NavigationContainer>
-        <AuthNavigation />
-      </NavigationContainer> */}
-      {/* <LoginScreen /> */}
-      {/* <List /> */}
-      {/* <AddButton /> */}
+        <CreateListScreen />
       </>
-       </View>
+    </View>
   );
 }
 
@@ -31,7 +29,8 @@ export default function App() {
 const styles = StyleSheet.create({ 
   container:{
     flex:1,
-   
+    justifyContent:'center',
+    alignItems:"center"
     // backgroundColor:'black'
   }
 })

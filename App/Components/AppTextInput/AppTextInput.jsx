@@ -1,29 +1,45 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { TextInput } from 'react-native-paper';
-import { StyleSheet, } from 'react-native'
+import { StyleSheet, View, } from 'react-native'
+import { FontAwesome } from '@expo/vector-icons';
+import { secondary } from '../../Config/Colors';
 
-export default function AppTextInput({label, mode ,onChangeText, ...otherProps}) {
+export default function AppTextInput({icon, label, mode ,onChangeText, ...otherProps}) {
 
   return (
-    <TextInput
-      label={label}
-      mode={mode}
-      onChangeText={onChangeText}
-      selectionColor='black'
-      underlineColor='black'
-      style={styles.input}
-      { ...otherProps}
-    />
+    <View style={styles.container}>
+      <TextInput
+        label={label}
+        mode={mode}
+        onChangeText={onChangeText}
+        selectionColor='black'
+        underlineColor='black'
+        style={styles.input}
+        { ...otherProps}
+      />
+    {icon &&  <FontAwesome style={styles.icon} name={icon} size={32} color={secondary} />}
+    </View>
+
   );
 }
 
 const styles = StyleSheet.create({
-    input:{
-        width: '92%',
-        marginLeft: '4%',
-        marginTop:15,
-        borderRadius:15
-}
+  input:{
+     flex:1,
+     marginRight:'5%',
+      marginLeft: '4%',
+      marginTop:20,
+  },
+    container:{
+      display:'flex',
+      flexDirection:'row',
+      justifyContent:'space-between',
+      alignItems:'center'
+    },
+    icon:{
+      marginTop:20,
+      marginRight:20,
+    }
 })
 
 // import React from 'react'

@@ -35,6 +35,7 @@ const LoginScreen = ({navigation}) => {
                             autCorrect={false}
                             keyboardType='email-address'
                             textContentType='emailAddress'
+                            mode='outlined'
                         />
                         <AppFormField 
                             label='Password'
@@ -43,6 +44,7 @@ const LoginScreen = ({navigation}) => {
                             textContentType='password'
                             secureTextEntry
                             name='password'
+                            mode='outlined'
                         />
                         <View style={styles.btnContainer}></View>
                         <AppSubmitButton 
