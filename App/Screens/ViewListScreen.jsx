@@ -8,6 +8,7 @@ import {  green, secondary } from '../Config/Colors';
 
 const ViewListScreen = ({route}) => {
     const item = route.params
+
     return (
         <View style={styles.screen}>
             <View style={styles.container}>
@@ -65,6 +66,6 @@ const styles = StyleSheet.create({
     status:{
         color: green,
         fontWeight:'bold',
-        marginTop:5,
+        marginTop:10,
     }
 })

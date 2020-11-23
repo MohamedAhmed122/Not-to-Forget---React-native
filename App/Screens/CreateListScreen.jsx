@@ -120,7 +120,7 @@ const categories =[
 const priorties =[
     {
         id:1,
-        label: 'urgent',
+        label: 'Urgent',
         color: danger
     },
     {
@@ -130,7 +130,7 @@ const priorties =[
     },
     {
         id:3,
-        label: 'Not Vey urgent',
+        label: 'Not Vey Urgent',
         color: green
     },
     {

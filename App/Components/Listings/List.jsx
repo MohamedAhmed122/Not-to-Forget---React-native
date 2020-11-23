@@ -61,10 +61,10 @@ const styles = StyleSheet.create({
         fontWeight:'600',
     },
     check:{
-        width:'100%',
-        right:50,
-        // position:'absolute'
-        alignItems:'flex-end',
+        // width:'100%',
+        // right:50,
+        // // position:'absolute'
+        // alignItems:'flex-end',
         // justifyContent:'flex-end'
     }
     

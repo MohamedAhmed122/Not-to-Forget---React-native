@@ -7,11 +7,14 @@ import { AntDesign } from '@expo/vector-icons';
 const AppCheckbox = ({color=primary}) => {
     const [check, setCheck] = useState(false)
     return (
+    
+
         <TouchableWithoutFeedback onPress={() => setCheck(!check)}>
             <View style={styles.container}>
                { check && <AntDesign style={!check? styles.container : styles.clicked} name="check" size={20} color={color} />}
             </View>
         </TouchableWithoutFeedback>
+   
     )
 }
 
@@ -21,8 +24,6 @@ const styles = StyleSheet.create({
     container:{
         height: 25,
         width: 25,
-        margin:100,
-       
         display:'flex',
         alignItems:'center',
         justifyContent:'center',
@@ -45,5 +46,8 @@ const styles = StyleSheet.create({
     check:{
         alignContent:'center',
         justifyContent:'center'
+    },
+    checkBox:{
+
     }
 })

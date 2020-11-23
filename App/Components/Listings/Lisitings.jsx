@@ -1,13 +1,15 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { FlatList, StyleSheet, Text, View } from 'react-native'
-import { color } from 'react-native-reanimated'
-import { danger, yellow, green, primary, secondary } from '../../Config/Colors'
+import { StyleSheet, View } from 'react-native'
+import {  primary } from '../../Config/Colors'
 import AppText from '../AppText/AppText'
+import setColor from '../../Config/colorUtility'
 import List from './List'
 
 const Lisitings = () => {
+
     const navigation = useNavigation()
+   
     return (
         <View>
            <AppText style={styles.text}>Work</AppText>
@@ -15,11 +17,11 @@ const Lisitings = () => {
                Listings.map(item =>(
                    item.category ==='Work' &&
                    <List 
-                        onPress={()=>navigation.navigate('View Listings', item)}
+                        onPress={()=>navigation.navigate('View Listings', item )}
                         key={item.id.toString()}
                         title={item.title}
                         subTitle={item.subtitle}
-                        color={item.color}/>
+                        color={setColor(item.priorty)}/>
                ))
            }
            <AppText style={styles.text}>Study</AppText>
@@ -31,7 +33,7 @@ const Lisitings = () => {
                         key={item.id.toString()}
                         title={item.title}
                         subTitle={item.subtitle}
-                        color={item.color}/>
+                        color={setColor(item.priorty)}/>
                ))
             }
           
@@ -57,10 +59,9 @@ const Listings =[
         subtitle: 'Lesson1',
         descripation:
         'rem, ipsum dolor sit amet consectetur adipisicing elit. Laborum sequi inventore at, rem quibusdam perferendis sed! Sapiente, repellendus, ratione in laudantium at architecto molestiae asperiores porro aspernatur cum, reprehenderit maiores?',
-        color: secondary,
         category: 'study',
         date:'21.09.2020',
-        priorty:'urget'
+        priorty:'Urgent'
     },
     {
         id: 2,
@@ -68,10 +69,9 @@ const Listings =[
         subtitle: 'Lesson2',
         descripation:
         'rem, ipsum dolor sit amet consectetur adipisicing elit. Laborum sequi inventore at, rem quibusdam perferendis sed! Sapiente, repellendus, ratione in laudantium at architecto molestiae asperiores porro aspernatur cum, reprehenderit maiores?',
-        color: danger,
         category: 'study',
         date:'20.12.2020',
-        priorty:'Not Very Urgent'
+        priorty:'Not Vey Urgent'
     }
     ,
     {
@@ -79,8 +79,7 @@ const Listings =[
         title: 'Work in university',
         subtitle: 'Work baby',
         descripation:
-        'rem, ipsum dolor sit amet consectetur adipisicing elit. Laborum sequi inventore at, rem quibusdam perferendis sed! Sapiente, repellendus, ratione in laudantium at architecto molestiae asperiores porro aspernatur cum, reprehenderit maiores?',
-        color: green,
+        'rem, ipsum dolor sit amet consectetur adipisicing elit. Laborum sequi inventore at, rem quibusdam perferendis sed! Sapiente, repellendus, ratione in laudantium at architecto molestiae asperiores porro aspernatur cum, reprehenderit maiores?',        
         category: 'Work',
         date:'04.09.2019',
         priorty:'Later'
@@ -92,10 +91,9 @@ const Listings =[
         subtitle: 'fish',
         descripation:
         'rem, ipsum dolor sit amet consectetur adipisicing elit. Laborum sequi inventore at, rem quibusdam perferendis sed! Sapiente, repellendus, ratione in laudantium at architecto molestiae asperiores porro aspernatur cum, reprehenderit maiores?',
-        color: yellow,
         category: 'Work',
         date:'02.02.2020',
-        priorty:'Later'
+        priorty:'Important'
 
     },
 ]
