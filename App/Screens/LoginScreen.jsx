@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import Constants from "expo-constants";
 import * as Yup from 'yup'
+import jwtDecode from 'jwt-decode'
 
 import AppText from '../Components/AppText/AppText'
 import AppForm from '../Components/Form/AppForm'
@@ -12,6 +13,7 @@ import AppLink from '../Components/AppLink/AppLink';
 
 import AuthContext from '../AuthContext/Context'
 import { Login } from '../api/auth'
+import ErrorMessage from '../Components/Form/ErrorMessage';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label('Email') ,
@@ -28,10 +30,10 @@ const LoginScreen = ({navigation}) => {
         if(!result.ok) return setLoginFailed(true);
 
         setLoginFailed(false)
-        const user = jwtDecode(result.data);
+        const user =result.data;
         console.log(user);
         authContext.setUser(user)
-        storeToken(result.data)
+      
     }
 
 
@@ -41,9 +43,7 @@ const LoginScreen = ({navigation}) => {
                 <AppForm
                     initialValues={{email: '', password:''}}
                     validationSchema={validationSchema}
-                    onSubmit={(values)=>{
-                        console.log(values)
-                    }}>
+                    onSubmit={handleSubmit}>
                     
                     <>
                         <AppFormField 
@@ -64,6 +64,7 @@ const LoginScreen = ({navigation}) => {
                             name='password'
                             mode='outlined'
                         />
+                        <ErrorMessage error='Invalid email or/and password' isTouched={loginFailed} />
                         <View style={styles.btnContainer}></View>
                         <AppSubmitButton 
                             title='Login' 

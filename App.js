@@ -5,7 +5,7 @@ import AuthNavigation from './App/Navigation/AuthNavigation';
 import { StyleSheet} from 'react-native';
 
 import AppNavigation from './App/Navigation/AppNavigation';
-// import AuthContext from './App/AuthContext/Context';
+import AuthContext from './App/AuthContext/Context';
 
 
 
@@ -16,12 +16,12 @@ export default function App() {
   
   return (
     // <View style={styles.container}>
-      // <AuthContext.Provider value={{user, setUser}}>
+      <AuthContext.Provider value={{user, setUser}}>
         <NavigationContainer>
-          <AppNavigation />
+          <AuthNavigation />
 
          </NavigationContainer>
-      // </AuthContext.Provider>
+       </AuthContext.Provider>
    
       
     //  </View>
