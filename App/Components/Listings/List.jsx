@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { white, yellow } from '../../Config/Colors'
-import StatusContext from '../../Status/Context'
 import AppCheckbox from '../AppCheckbox/AppCheckbox'
 import AppText from '../AppText/AppText'
 

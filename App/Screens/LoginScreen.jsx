@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import Constants from "expo-constants";
@@ -10,12 +10,30 @@ import AppFormField from '../Components/Form/AppFormField'
 import AppSubmitButton from '../Components/Form/AppSubmitButton'
 import AppLink from '../Components/AppLink/AppLink';
 
+import AuthContext from '../AuthContext/Context'
+import { Login } from '../api/auth'
+
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label('Email') ,
     password: Yup.string().required().min(6).label('Password')
 })
 
 const LoginScreen = ({navigation}) => {
+
+    const [loginFailed, setLoginFailed] = useState(false)
+    const authContext = useContext(AuthContext)
+
+    const handleSubmit = async({email, password}) =>{
+        const result =  await Login(email, password)
+        if(!result.ok) return setLoginFailed(true);
+
+        setLoginFailed(false)
+        const user = jwtDecode(result.data);
+        console.log(user);
+        authContext.setUser(user)
+        storeToken(result.data)
+    }
+
 
     return ( 
         <View style={styles.screen}>
