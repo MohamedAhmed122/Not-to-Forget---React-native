@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext, useState} from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import Constants from "expo-constants";
@@ -9,9 +9,12 @@ import AppForm from '../Components/Form/AppForm'
 import AppFormField from '../Components/Form/AppFormField'
 import AppSubmitButton from '../Components/Form/AppSubmitButton'
 import AppLink from '../Components/AppLink/AppLink';
+import AuthContext from '../AuthContext/Context';
+import axios from 'axios';
+import appAlertBox from '../Utility/Contast';
 
 const validationSchema = Yup.object().shape({
-    name:Yup.string().required().email().label('Name'),
+    name:Yup.string().required().label('Name'),
     email: Yup.string().required().email().label('Email') ,
     password: Yup.string().required().min(6).label('Password'),
     confirmPassword: Yup.string()
@@ -19,6 +22,32 @@ const validationSchema = Yup.object().shape({
     })
 
 const RegisterScreen = ({navigation}) => {
+
+    const [registerFailed, setRegisterFailed] = useState(null)
+    const [loading, setLoading ] = useState(false);
+    const { setUser } = useContext(AuthContext)
+
+    const handleSubmit = async({confirmPassword, email, name, password}) =>{
+
+        const URL ='http://practice.mobile.kreosoft.ru/api/register'
+        setLoading(true)
+        try {
+            const { data } = await axios.post(URL,  {email, password, name })
+            console.log(data);
+            setLoading(false)
+            setUser(data);
+
+        } catch (error) {
+
+            console.log(error);
+            setLoading(false)
+            setRegisterFailed(error)
+            setUser(null)
+            if (error.response) {
+                appAlertBox(error.response.data.message);
+            }
+        }
+    }
 
     return ( 
         <View style={styles.screen}>
@@ -31,9 +60,7 @@ const RegisterScreen = ({navigation}) => {
                         confirmPassword:''
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values)=>{
-                        console.log(values)
-                    }}>
+                    onSubmit={handleSubmit}>
                     
                     <>
                         <AppFormField 
@@ -52,7 +79,7 @@ const RegisterScreen = ({navigation}) => {
                             autCorrect={false}
                             mode='outlined'
                             textContentType='password'
-                            secureTextEntry
+                            // secureTextEntry
                             name='password'
                         />
                          <AppFormField 
@@ -61,7 +88,7 @@ const RegisterScreen = ({navigation}) => {
                             autCorrect={false}
                             mode='outlined'
                             textContentType='password'
-                            secureTextEntry
+                            // secureTextEntry
                             name='confirmPassword'
                         />
                         <View style={styles.btnContainer}></View>

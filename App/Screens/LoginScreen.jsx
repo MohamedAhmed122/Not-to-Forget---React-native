@@ -37,7 +37,7 @@ const LoginScreen = ({navigation}) => {
         setLoading(false)
        } catch (error) {
            console.log(error);
-           setLoginFailed(false)
+           setLoginFailed(false) 
            setLoading(false)
        }
 
