@@ -14,20 +14,22 @@ const ViewListScreen = ({route}) => {
             <View style={styles.container}>
                 <View>
                     <AppText style={styles.mainText}>{item.title}</AppText>
-                    <AppText style={styles.subText}>{item.subtitle}</AppText>
+                    <AppText style={styles.subText}>{item.category.name}</AppText>
                 </View>
                 <View>
                     <AntDesign name="edit" size={30} color={secondary} />
-                    <AppText style={styles.status}>Done</AppText>
+                    <AppText style={styles.status}>{item.Done === 0 ? 'New' : 'Done' }</AppText>
                 </View>
             </View>
-                <AppText style={styles.text}>{item.descripation}</AppText>
+                <AppText style={styles.text}>{item.description}</AppText>
                 <View style={styles.container}>
                     <View style={{flexDirection:'row'}}>
                         <MaterialIcons name="access-time" size={24} color="black" />
-                        <AppText style={styles.subText}>from {item.date}</AppText>
+                        <AppText style={styles.subText}>
+                            from  {new Date(item.deadline * 1000).toLocaleDateString()}
+                        </AppText>
                     </View>
-                    <AppText>{item.priorty}</AppText>
+                    <AppText>{item.priority.name}</AppText>
                 </View>
             
         </View>
