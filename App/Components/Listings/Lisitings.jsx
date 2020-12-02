@@ -13,7 +13,7 @@ const Lisitings = ({listings}) => {
         <View>
            <AppText style={styles.text}>Work</AppText>
            {
-               listings.map(item =>(
+               listings?.map(item =>(
                  
                    <List 
                         onPress={()=>navigation.navigate('View Listings', item )}
@@ -21,6 +21,7 @@ const Lisitings = ({listings}) => {
                         title={item.title}
                         subTitle={item.category.name}
                         color={item.priority.color} 
+                        done={item.done}
                         />
                ))
            }

@@ -5,8 +5,8 @@ import { primary, white } from '../../Config/Colors'
 import { AntDesign } from '@expo/vector-icons';
 
 
-const AppCheckbox = ({color=primary,}) => {
-    const [check, setCheck] = useState(false)
+const AppCheckbox = ({color=primary, done}) => {
+    const [check, setCheck] = useState(done? false : true)
    
     return (
         <TouchableWithoutFeedback onPress={()=>setCheck(!check)}>

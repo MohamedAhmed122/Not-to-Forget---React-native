@@ -3,6 +3,7 @@ import Constants from "expo-constants";
 import { ScrollView, StyleSheet, View } from 'react-native'
 import AddButton from '../Components/AddButton/AddButton';
 import ListingsEmpty from '../Components/Listings/ListingsEmpty';
+import AppActivityIndictor from '../Components/AppActivityIndicator/AppActivityIndicator'
 import Lisitings from '../Components/Listings/Lisitings';
 import AuthContext from '../AuthContext/Context';
 import axios from 'axios';
@@ -41,6 +42,7 @@ const LisitingsScreen = ({navigation}) => {
 
     return (
         <View style={styles.screen}> 
+       <AppActivityIndictor visible={loading}/>
             <ScrollView>
                 <Lisitings listings={listings} />
             <View style={styles.btnContainer}>

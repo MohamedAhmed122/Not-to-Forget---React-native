@@ -5,7 +5,7 @@ import { white, yellow } from '../../Config/Colors'
 import AppCheckbox from '../AppCheckbox/AppCheckbox'
 import AppText from '../AppText/AppText'
 
-const List = ({color, title, subTitle, onPress}) => {
+const List = ({color, title, subTitle, onPress, done}) => {
     
     return (
         <TouchableWithoutFeedback onPress={onPress}>
@@ -15,7 +15,7 @@ const List = ({color, title, subTitle, onPress}) => {
                     <AppText style={styles.subText}>{subTitle}</AppText>
                 </View>
                 <View style={styles.check}>
-                    <AppCheckbox color={color}/>
+                    <AppCheckbox done={done} color={color}/>
                 </View>
             </View>
         </TouchableWithoutFeedback>
