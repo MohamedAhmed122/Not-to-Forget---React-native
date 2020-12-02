@@ -3,7 +3,6 @@ import { StyleSheet, View } from 'react-native'
 
 import Constants from "expo-constants";
 import * as Yup from 'yup'
-import jwtDecode from 'jwt-decode'
 
 import AppText from '../Components/AppText/AppText'
 import AppForm from '../Components/Form/AppForm'
@@ -12,8 +11,9 @@ import AppSubmitButton from '../Components/Form/AppSubmitButton'
 import AppLink from '../Components/AppLink/AppLink';
 
 import AuthContext from '../AuthContext/Context'
-import { Login } from '../api/auth'
+
 import ErrorMessage from '../Components/Form/ErrorMessage';
+import axios from 'axios';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label('Email') ,
@@ -23,18 +23,25 @@ const validationSchema = Yup.object().shape({
 const LoginScreen = ({navigation}) => {
 
     const [loginFailed, setLoginFailed] = useState(false)
+    const [loading, setLoading] = useState(false);
     const authContext = useContext(AuthContext)
 
-    const handleSubmit = async({email, password}) =>{
-        const result =  await Login(email, password)
-        if(!result.ok) return setLoginFailed(true);
-
+   const handleSubmit = async ({email, password})=>{
+       const URL ='http://practice.mobile.kreosoft.ru/api/login'
+        setLoading(true)
+       try {
+        const { data } = await axios.post(URL, { email, password });
+        console.log(data, 'data');
+        authContext.setUser(data);
         setLoginFailed(false)
-        const user =result.data;
-        console.log(user);
-        authContext.setUser(user)
-      
-    }
+        setLoading(false)
+       } catch (error) {
+           console.log(error);
+           setLoginFailed(false)
+           setLoading(false)
+       }
+
+   }
 
 
     return ( 
@@ -43,7 +50,7 @@ const LoginScreen = ({navigation}) => {
                 <AppForm
                     initialValues={{email: '', password:''}}
                     validationSchema={validationSchema}
-                    onSubmit={handleSubmit}>
+                    onSubmit={handleSubmit} >
                     
                     <>
                         <AppFormField 
