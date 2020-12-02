@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Constants from "expo-constants";
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import AddButton from '../Components/AddButton/AddButton';
+import AppButton from '../Components/AppButton/AppButton'
 import ListingsEmpty from '../Components/Listings/ListingsEmpty';
 import AppActivityIndictor from '../Components/AppActivityIndicator/AppActivityIndicator'
 import Lisitings from '../Components/Listings/Lisitings';
@@ -43,6 +44,10 @@ const LisitingsScreen = ({navigation}) => {
     return (
         <View style={styles.screen}> 
        <AppActivityIndictor visible={loading}/>
+       {error  && <>
+            <Text style={styles.text}>couldn't get the data for the server</Text>
+            <AppButton title='Retry' onPress={getListings} />
+            </>}
             <ScrollView>
                 <Lisitings listings={listings} />
             <View style={styles.btnContainer}>
@@ -67,6 +72,9 @@ const styles = StyleSheet.create({
         position:'absolute',
         bottom:30,
         right:30,
+    },
+    text :{ 
+        textAlign:'center'
     }
 })
 
@@ -81,8 +89,3 @@ const styles = StyleSheet.create({
 
 
 
-
- // const { data  } = await axios.get(`${URL}/categories` ,config )
-            // console.log(data)
-            // const { data : priorityData } = await axios.get(`${URL}/priorities` ,config )
-            // console.log(priorityData)

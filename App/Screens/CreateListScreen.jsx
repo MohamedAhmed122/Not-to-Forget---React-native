@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import Constants from "expo-constants";
@@ -11,6 +11,8 @@ import AppFormPicker from '../Components/Form/AppFormPicker';
 
 import {danger, green, secondary, yellow} from '../Config/Colors'
 import AppDatePicker from '../Components/AppDatePicker/AppDatePicker';
+import { getCategories, getPriority } from '../api/Requests';
+import AuthContext from '../AuthContext/Context';
 
 
 const validationSchema = Yup.object().shape({
@@ -20,7 +22,18 @@ const validationSchema = Yup.object().shape({
     priorty: Yup.string().required() ,
 })
 
-const CreateListScreen = ({navigation}) => {
+ const CreateListScreen = ({navigation}) => {
+
+    const { user } = useContext(AuthContext)
+    const [categories, setCategory ] = useState([]);
+    const [priority, setPriority ] = useState([]);
+
+    useEffect(()=>{
+        const fetchCategory = getCategories(user.api_token)
+        setCategory(fetchCategory);
+        const fetchPriority = getPriority(user.api_token)
+        setPriority(fetchPriority);
+    },[])
 
     return ( 
         <View style={styles.screen}>
@@ -55,7 +68,7 @@ const CreateListScreen = ({navigation}) => {
                         placeholder='Category' name='category' icon="plus-square-o"/>
 
                         <AppFormPicker 
-                        categories={priorties}
+                        categories={priority}
                         placeholder='Priority' name='priorty'  />
 
                         <View style={styles.btnContainer}/>
@@ -91,24 +104,24 @@ const styles = StyleSheet.create({
     }
 })
 
-const categories =[
-    {
-        id:1,
-        label: 'Study',
-    },
-    {
-        id:2,
-        label: 'Work',
-    },
-    {
-        id:3,
-        label: 'Sport',
-    },
-    {
-        id:4,
-        label: 'Rest',
-    },
-]
+// const categories =[
+//     {
+//         id:1,
+//         name: 'Study',
+//     },
+//     {
+//         id:2,
+//         name: 'Work',
+//     },
+//     {
+//         id:3,
+//         name: 'Sport',
+//     },
+//     {
+//         id:4,
+//         name: 'Rest',
+//     },
+// ]
 
 const priorties =[
     {

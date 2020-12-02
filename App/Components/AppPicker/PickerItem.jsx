@@ -3,7 +3,9 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import AppText from '../AppText/AppText'
 import { black } from '../../Config/Colors';
 
+
 const PickerItem = ({label, color, onPress}) => {
+    console.log(label)
     return (
         <TouchableOpacity onPress={onPress}>
             <View style={[styles.container, {backgroundColor:color}]}>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, FlatList, Modal, StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
+import { Button, FlatList, Modal, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import { gray, secondary } from '../../Config/Colors'
 import { Entypo } from '@expo/vector-icons';
 import AppText from '../AppText/AppText';
@@ -8,43 +8,44 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const AppPicker = ({icon, items, selectedItem, placeholder, setSelectedItem, style }) => {
     const[modalVisible, setModalVisible]= useState(false)
+   console.log(items)
     return (
         <>
         <TouchableWithoutFeedback onPress={()=>setModalVisible(true)}>
             <View style={styles.mainContainer}>
                 <View style={[styles.container, style]}>  
                     <AppText style={styles.text}>
-                        {selectedItem? selectedItem.label : placeholder}
+                        {selectedItem? selectedItem.name : placeholder}
                     </AppText>
                     <Entypo name="chevron-down" size={24} color="gray" />
                 </View>
               { icon && <FontAwesome style={styles.icon} name={icon} size={35} color={secondary} />}
             </View>
         </TouchableWithoutFeedback>
-        <Modal
-            animationType="slide"
-            visible={modalVisible}
-        >
-            <View style={styles.modalContainer}>
-                <Button title='close' onPress={()=>setModalVisible(false)} />
-                <FlatList 
-                    style={styles.listContainer}
-                    data={items}
-                    keyExtractor={items => items.id.toString()}
-                    renderItem={({item})=> <PickerItem
-                        label={item.label} 
-                        color={item.color} 
-                        icon={item.icon} 
-                        onPress={ ()=>{
-                            setModalVisible(false)
-                            setSelectedItem(item)
-                        }} 
-                        />
-                    }
+        <Modal animationType="slide" visible={modalVisible}>
+        <View style={styles.modalContainer}>
+          <Button title="close" onPress={() => setModalVisible(false)} />
+          <FlatList
+          
+            style={styles.listContainer}
+            data={items._W}
+            keyExtractor={(items) => items.id.toString()}
+            renderItem={({ item }) => (
+                <PickerItem
+                
+                label={item?.name}
+                color={item?.color}
+                icon={item?.icon}
+                onPress={() => {
+                    setModalVisible(false);
+                    setSelectedItem(item);
+                }}
                 />
-            </View>
-            
-        </Modal>
+               
+                )}
+            />
+        </View>
+      </Modal>
         </>
        
     )

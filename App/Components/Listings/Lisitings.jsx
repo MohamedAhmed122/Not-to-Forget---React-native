@@ -22,24 +22,9 @@ const Lisitings = ({listings}) => {
                         subTitle={item.category.name}
                         color={item.priority.color} 
                         done={item.done}
-                        />
+                    />
                ))
            }
-           {/* <AppText style={styles.text}>Study</AppText>
-           {
-               Listings.map(item =>(
-                   item.category ==='study' &&
-                   <List 
-                        onPress={()=>navigation.navigate('View Listings', item)}
-                        key={item.id.toString()}
-                        title={item.title}
-                        subTitle={item.subtitle}
-                        color={setColor(item.priorty)}
-                       
-                        />
-               ))
-            } */}
-          
         </View>
     )
 }
