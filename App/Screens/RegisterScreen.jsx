@@ -22,26 +22,23 @@ const validationSchema = Yup.object().shape({
     })
 
 const RegisterScreen = ({navigation}) => {
-
-    const [registerFailed, setRegisterFailed] = useState(null)
-    const [loading, setLoading ] = useState(false);
+   
     const { setUser } = useContext(AuthContext)
 
     const handleSubmit = async({confirmPassword, email, name, password}) =>{
 
         const URL ='http://practice.mobile.kreosoft.ru/api/register'
-        setLoading(true)
+       
         try {
             const { data } = await axios.post(URL,  {email, password, name })
             console.log(data);
-            setLoading(false)
+         
             setUser(data);
 
         } catch (error) {
 
             console.log(error);
-            setLoading(false)
-            setRegisterFailed(error)
+           
             setUser(null)
             if (error.response) {
                 appAlertBox(error.response.data.message);

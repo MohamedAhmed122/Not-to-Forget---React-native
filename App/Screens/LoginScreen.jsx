@@ -23,22 +23,22 @@ const validationSchema = Yup.object().shape({
 const LoginScreen = ({navigation}) => {
 
     const [loginFailed, setLoginFailed] = useState(false)
-    const [loading, setLoading] = useState(false);
+   
     const authContext = useContext(AuthContext)
 
    const handleSubmit = async ({email, password})=>{
-       const URL ='http://practice.mobile.kreosoft.ru/api/login'
-        setLoading(true)
+       const URL ='http://practice.mobile.kreosoft.ru/api/login';
+
        try {
         const { data } = await axios.post(URL, { email, password });
         console.log(data, 'data');
         authContext.setUser(data);
         setLoginFailed(false)
-        setLoading(false)
+
        } catch (error) {
            console.log(error);
            setLoginFailed(false) 
-           setLoading(false)
+           authContext.setUser(null);
        }
 
    }
