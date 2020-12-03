@@ -25,15 +25,10 @@ const Lisitings = ({listings}) => {
                     Authorization: `Bearer ${user.api_token}`,
                 }
             }
-            console.log(user.api_token); 
             const { data } = await axios.delete(`${URL}/tasks/${id}`, config)
-
             return listings.filter(list => list.id !== id )
-            
-
         } catch (error) { 
             console.log(error, 'Error in deleting')
-           
         }
     }
    
