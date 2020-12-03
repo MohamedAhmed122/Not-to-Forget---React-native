@@ -48,12 +48,12 @@ const LisitingsScreen = ({navigation}) => {
             <Text style={styles.text}>couldn't get the data for the server</Text>
             <AppButton title='Retry' onPress={getListings} />
             </>}
-            <ScrollView>
+            <ScrollView refreshControl={true}>
                 <Lisitings listings={listings} />
+            </ScrollView>
             <View style={styles.btnContainer}>
                 <AddButton  onPress={() => navigation.navigate('Create Listings')} />
             </View>
-            </ScrollView>
         </View>
     )
 }

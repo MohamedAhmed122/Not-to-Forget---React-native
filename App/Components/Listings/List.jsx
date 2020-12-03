@@ -8,7 +8,7 @@ import AppText from '../AppText/AppText'
 const List = ({color, title, subTitle, onPress, done}) => {
     
     return (
-        <TouchableWithoutFeedback onPress={onPress}>
+        <TouchableWithoutFeedback onPress={onPress} useNativeDriver={true}>
             <View style={[styles.container, {backgroundColor: color}]}>
                 <View style={styles.textContainer}>
                     <AppText style={styles.mainText}>{title}</AppText>

@@ -1,28 +1,78 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import {  primary } from '../../Config/Colors'
 import AppText from '../AppText/AppText'
 import setColor from '../../Config/colorUtility'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import List from './List'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
+import AuthContext from '../../AuthContext/Context'
+import axios from 'axios'
 
 const Lisitings = ({listings}) => {
+
+    const { user }= useContext(AuthContext);
+
     const navigation = useNavigation()
+
+    const deleteTask = async(id, checked) =>{
+        const URL = 'http://practice.mobile.kreosoft.ru/api';
+       
+        try {
+            const config ={
+                headers :{
+                    Authorization: `Bearer ${user.api_token}`,
+                }
+            }
+            console.log(user.api_token); 
+            const { data } = await axios.delete(`${URL}/tasks/${id}`, config)
+
+            return listings.filter(list => list.id !== id )
+            
+
+        } catch (error) { 
+            console.log(error, 'Error in deleting')
+           
+        }
+    }
    
     return (
         <View>
            <AppText style={styles.text}>Work</AppText>
            {
                listings?.map(item =>(
-                 
-                   <List 
-                        onPress={()=>navigation.navigate('View Listings', item )}
-                        key={item.id.toString()}
-                        title={item.title}
-                        subTitle={item.category.name}
-                        color={item.priority.color} 
-                        done={item.done}
-                    />
+                <Swipeable
+                
+                    key={item.id.toString()}
+                    renderRightActions={()=> (
+                        <>
+                             <TouchableOpacity
+                            onPress={() => {
+                                deleteTask(item.id);;
+                            }}
+                            style={styles.swipe}
+                            >
+                            <MaterialCommunityIcons
+                            useNativeDriver={true}
+                            name="delete"
+                            size={30}
+                            style={{ marginLeft: 20 }}
+                            />
+                            </TouchableOpacity>
+                        </>
+                    )}
+                    >
+                     <List
+                     useNativeDriver={true} 
+                          onPress={()=>navigation.navigate('View Listings', item )}
+                          key={item.id.toString()}
+                          title={item.title}
+                          subTitle={item.category.name}
+                          color={item.priority.color} 
+                          done={item.done}
+                      />
+                 </Swipeable>
                ))
            }
         </View>
@@ -37,6 +87,13 @@ const styles = StyleSheet.create({
         color: primary,
         fontWeight: 'bold',
         fontSize:30,
+    },
+    swipe:{
+        backgroundColor: '#eee',
+        height: '82%',
+        width: 100,
+        justifyContent: 'center',
+        borderRadius: 10,
     }
 })
 
