@@ -31,3 +31,28 @@ export const getPriority = async (api_token) =>{
         console.log(error)
     }
 }
+
+export const createListings = async (
+    api_token, 
+    title, 
+    description, 
+    done, 
+    deadline, 
+    category_id, 
+    priority_id
+    ) =>{
+        try {
+            const config ={
+                headers:{
+                    Authorization : `Bearer ${api_token}`
+                }
+            }
+            const { data } = await axios.post(`${URL}/tasks`,
+            {title, description, done :0, deadline, category_id, priority_id}, config)
+            console.log(data)
+            return data;
+        } catch (error) {
+            console.log('error is coming from Posting the data', error)
+        }
+
+}

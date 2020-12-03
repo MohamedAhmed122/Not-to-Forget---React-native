@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { useFormikContext } from "formik";
-import { View } from "react-native";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import AppTextInput from "../AppTextInput/AppTextInput";
+import React, { useState } from 'react';
+import { useFormikContext } from 'formik';
+import { View } from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import AppTextInput from '../AppTextInput/AppTextInput';
 
-const AppDatePicker = ({name}) => {
-
-  const {  setFieldValue,values,} = useFormikContext()
+const AppDatePicker = ({ name, allowPress }) => {
+  const { setFieldValue, values } = useFormikContext();
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const showDatePicker = () => {
@@ -18,19 +17,21 @@ const AppDatePicker = ({name}) => {
   };
 
   const handleConfirm = (date) => {
-    setFieldValue(name, date);
+    setFieldValue(name, new Date(date).toUTCString());
     hideDatePicker();
   };
 
   return (
-    <View style={{width:'100%'}}>
-        <AppTextInput
-        onChangeText={(date)=> setFieldValue(name, date)} 
+    <View style={{ width: '100%' }}>
+      <AppTextInput
+        onChangeText={(date) => setFieldValue(name, date)}
         value={values[name]}
-        label='completion date' 
-        onPress={showDatePicker}  
-        icon="calendar-plus-o"/>
-     
+        label="completion date"
+        onPress={showDatePicker}
+        icon="calendar-plus-o"
+        editable={false}
+      />
+
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"

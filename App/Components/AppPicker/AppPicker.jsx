@@ -8,7 +8,6 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const AppPicker = ({icon, items, selectedItem, placeholder, setSelectedItem, style }) => {
     const[modalVisible, setModalVisible]= useState(false)
-   console.log(items)
     return (
         <>
         <TouchableWithoutFeedback onPress={()=>setModalVisible(true)}>

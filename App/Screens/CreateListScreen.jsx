@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native'
 
 import Constants from "expo-constants";
 import * as Yup from 'yup'
+import axios from 'axios'
 
 import AppForm from '../Components/Form/AppForm'
 import AppFormField from '../Components/Form/AppFormField'
@@ -19,7 +20,7 @@ const validationSchema = Yup.object().shape({
     title: Yup.string().required() ,
     description: Yup.string().required().max(120),
     category:Yup.string().required() ,
-    priorty: Yup.string().required() ,
+    priority: Yup.string().required() ,
 })
 
  const CreateListScreen = ({navigation}) => {
@@ -27,6 +28,41 @@ const validationSchema = Yup.object().shape({
     const { user } = useContext(AuthContext)
     const [categories, setCategory ] = useState([]);
     const [priority, setPriority ] = useState([]);
+    const [loading, setLoading] = useState(false)
+    const createTask = async (
+        title,
+        description,
+        deadline,
+        category_id,
+        priority_id
+      ) => {
+        setLoading(true);
+        try {
+          const { data } = await axios.post(
+            'http://practice.mobile.kreosoft.ru/api/tasks',
+            {
+              title,
+              description,
+              done: 0,
+              deadline,
+              category_id,
+              priority_id,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${user.api_token}`,
+              },
+            }
+          );
+        //   appContext.getAppData(true);
+           console.log(data);
+          setLoading(false);
+          navigation.goBack();
+        } catch (error) {
+          console.log(error);
+          setLoading(false);
+        }
+      };
 
     useEffect(()=>{
         const fetchCategory = getCategories(user.api_token)
@@ -35,6 +71,9 @@ const validationSchema = Yup.object().shape({
         setPriority(fetchPriority);
     },[])
 
+    // const URL ='http://practice.mobile.kreosoft.ru/api'
+
+     
     return ( 
         <View style={styles.screen}>
             <View style={styles.container}>
@@ -44,24 +83,34 @@ const validationSchema = Yup.object().shape({
                         description:'',
                         date:'',
                         category:'',
-                        priorty:''
+                        priority:''
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values)=>{
-                        console.log(values)
-                    }}>
+                    onSubmit={async (values) => {
+                        const { title, description, date, category, priority } = values;
+                       await createTask(
+                          title,
+                          description,
+                          new Date(date).getTime() / 1000,
+                          category.id,
+                          priority.id
+                        );
+            
+                        // console.log(values, 'values');
+                      }}
+                    >
                     
                     <>
                         <AppFormField  name='title'   label='Title' />
 
                         <AppFormField 
-                            label='Descripation'
+                            label='Description'
                             maxLength={120}
                             numberOfLines={3}
                             name='description'
                             mode='outlined'
                         />
-                        <AppDatePicker  name='date' />
+                        <AppDatePicker allowPress  name='date' />
 
                         <AppFormPicker 
                         categories={categories}
@@ -69,7 +118,7 @@ const validationSchema = Yup.object().shape({
 
                         <AppFormPicker 
                         categories={priority}
-                        placeholder='Priority' name='priorty'  />
+                        placeholder='Priority' name='priority'  />
 
                         <View style={styles.btnContainer}/>
                         <AppSubmitButton 
