@@ -14,6 +14,7 @@ import {danger, green, secondary, yellow} from '../Config/Colors'
 import AppDatePicker from '../Components/AppDatePicker/AppDatePicker';
 import { getCategories, getPriority } from '../api/Requests';
 import AuthContext from '../AuthContext/Context';
+import UploadScreen from '../Components/uploadScreen/uploadScreen';
 
 
 const validationSchema = Yup.object().shape({
@@ -28,7 +29,8 @@ const validationSchema = Yup.object().shape({
     const { user } = useContext(AuthContext)
     const [categories, setCategory ] = useState([]);
     const [priority, setPriority ] = useState([]);
-    const [loading, setLoading] = useState(false)
+    const [visibleModal, setVisibleModal] = useState(false)
+
     const createTask = async (
         title,
         description,
@@ -36,7 +38,7 @@ const validationSchema = Yup.object().shape({
         category_id,
         priority_id
       ) => {
-        setLoading(true);
+        setVisibleModal(true);
         try {
           const { data } = await axios.post(
             'http://practice.mobile.kreosoft.ru/api/tasks',
@@ -56,11 +58,9 @@ const validationSchema = Yup.object().shape({
           );
         //   appContext.getAppData(true);
            console.log(data);
-          setLoading(false);
           navigation.goBack();
         } catch (error) {
           console.log(error);
-          setLoading(false);
         }
       };
 
@@ -76,6 +76,7 @@ const validationSchema = Yup.object().shape({
      
     return ( 
         <View style={styles.screen}>
+            <UploadScreen visible={visibleModal} onDone={()=>setVisibleModal(false)} />
             <View style={styles.container}>
                 <AppForm
                     initialValues={{

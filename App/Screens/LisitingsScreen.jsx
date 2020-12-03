@@ -11,7 +11,6 @@ import axios from 'axios';
 
 const LisitingsScreen = ({navigation}) => {
     const [listings, setListings] = useState()
-
     const [ loading, setLoading ] = useState(false)
     const [ error, setError ] = useState(false)
     const {user} = useContext(AuthContext)
@@ -43,17 +42,17 @@ const LisitingsScreen = ({navigation}) => {
 
     return (
         <View style={styles.screen}> 
-       <AppActivityIndictor visible={loading}/>
-       {error  && <>
-            <Text style={styles.text}>couldn't get the data for the server</Text>
-            <AppButton title='Retry' onPress={getListings} />
-            </>}
-            <ScrollView refreshControl={true}>
-                <Lisitings listings={listings} />
-            </ScrollView>
-            <View style={styles.btnContainer}>
-                <AddButton  onPress={() => navigation.navigate('Create Listings')} />
-            </View>
+             <AppActivityIndictor visible={loading}/>
+                {error  && <>
+                <Text style={styles.text}>couldn't get the data for the server</Text>
+                <AppButton title='Retry' onPress={getListings} />
+                </>}
+                <ScrollView refreshControl={true}>
+                    <Lisitings listings={listings} />
+                </ScrollView>
+                <View style={styles.btnContainer}>
+                    <AddButton  onPress={() => navigation.navigate('Create Listings')} />
+                </View>
         </View>
     )
 }
