@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal, StyleSheet, View } from 'react-native'
 import LottieView from 'lottie-react-native'
 
-const UploadScreen = ({progress, onDone , visible}) => {
+const UploadScreen = ({ onDone , visible}) => {
     return (
         <Modal visible={visible}>
             <View style={styles.container}>
@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
         flex:1,
     },
     animation:{
-        width: 150,
+        width: 250,
     }
 })

@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import {  green, secondary } from '../Config/Colors';
 
-const ViewListScreen = ({route}) => {
+const ViewListScreen = ({navigation, route}) => {
     const item = route.params
 
     return (
@@ -17,7 +17,16 @@ const ViewListScreen = ({route}) => {
                     <AppText style={styles.subText}>{item.category.name}</AppText>
                 </View>
                 <View>
-                    <AntDesign name="edit" size={30} color={secondary} />
+                    <AntDesign 
+                    name="edit" 
+                    size={30} 
+                    color={secondary} 
+                    onPress={() =>
+                        navigation.navigate('Edit Listings', {
+                          item,
+                        })
+                      }
+                    />
                     <AppText style={styles.status}>{item.Done === 0 ? 'New' : 'Done' }</AppText>
                 </View>
             </View>

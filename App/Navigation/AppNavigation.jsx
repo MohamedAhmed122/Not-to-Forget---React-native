@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LisitingsScreen from '../Screens/LisitingsScreen'
 import CreateListScreen from '../Screens/CreateListScreen'
 import ViewListScreen from '../Screens/ViewListScreen'
+import UpdateListScreen from '../Screens/EditScreen';
 
 
 const AppNavigation = () => {
@@ -13,6 +14,7 @@ const AppNavigation = () => {
             <Stack.Screen component={LisitingsScreen} name='Not Forget' />
             <Stack.Screen component={CreateListScreen} name='Create Listings' />
             <Stack.Screen component={ViewListScreen} name='View Listings' />
+            <Stack.Screen component={UpdateListScreen} name="Edit Listings" />
         </Stack.Navigator>
     )
 }
