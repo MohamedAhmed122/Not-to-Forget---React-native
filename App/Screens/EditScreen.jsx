@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Constants from 'expo-constants';
@@ -10,34 +10,25 @@ import AppFormField from '../Components/Form/AppFormField';
 import AppSubmitButton from '../Components/Form/AppSubmitButton';
 import AppFormPicker from '../Components/Form/AppFormPicker';
 import AppDatePicker from '../Components/AppDatePicker/AppDatePicker';
-import AuthContext from '../AuthContext/Context';
-import { getCategories, getPriority } from '../api/Requests';
-import UploadScreen from '../Components/uploadScreen/uploadScreen';
+import AuthContext, { AppContext } from '../AuthContext/Context';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required(),
   description: Yup.string().required().max(120),
   category: Yup.string().required(),
-  priority: Yup.string().required(),
+  priorty: Yup.string().required(),
   date: Yup.date().required(),
 });
 
 const UpdateListScreen = ({ navigation, route }) => {
   const authContext = useContext(AuthContext);
-  const [categories, setCategory ] = useState([]);
-  const [priority, setPriority ] = useState([]);
-  const [visibleModal, setVisibleModal] = useState(false);
-  
+  const appContext = useContext(AppContext);
+  const [loading, setLoading] = useState(false);
+  const { listings, categories, loadingData, priorities } = appContext.state;
   const { item } = route.params;
-console.log(item.description, item.title);
-  const { user } = authContext;
 
-  useEffect(()=>{
-    const fetchCategory = getCategories(user.api_token)
-    setCategory(fetchCategory);
-    const fetchPriority = getPriority(user.api_token)
-    setPriority(fetchPriority);
-},[])
+  // Get Api Auth Key
+  const { user } = authContext;
 
   const updateTask = async (
     title,
@@ -46,10 +37,10 @@ console.log(item.description, item.title);
     category_id,
     priority_id
   ) => {
-    setVisibleModal(true)
+    setLoading(true);
     try {
       const { data } = await axios.patch(
-        `http://practice.mobile.kreosoft.ru/api/tasks/${item.id}`,
+        `/tasks/${item.id}`,
         {
           title,
           description,
@@ -64,38 +55,43 @@ console.log(item.description, item.title);
           },
         }
       );
-      console.log('Updated data', data);
+      appContext.getAppData(true);
 
-      navigation.goBack();
+      setLoading(false);
+
+      // Reset Navigation Stack
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Not Forget' }],
+      });
     } catch (error) {
-      console.log(error, 'error is coming from update data');
+      console.log(error);
+      setLoading(false);
     }
   };
 
   return (
     <View style={styles.screen}>
       <View style={styles.container}>
-          <UploadScreen visible={visibleModal} onDone={()=>setVisibleModal(false)} />
         <AppForm
-            validationSchema={validationSchema}
-            initialValues={{
-                title: item.title,
-                description: item.description,
-                date: new Date(item.deadline).toUTCString(),
-                category: item.category,
-                priority: item.priority,
-            }}
-        //   validationSchema={validationSchema}
-          onSubmit={ async(values) => {
-            const { title, description, date, category, priority } = values;
-           await updateTask(
+          initialValues={{
+            title: item.title,
+            description: item.description,
+            date: new Date(item.deadline).toUTCString(),
+            category: item.category,
+            priorty: item.priority,
+          }}
+          validationSchema={validationSchema}
+          onSubmit={(values) => {
+            const { title, description, date, category, priorty } = values;
+
+            updateTask(
               title,
               description,
               new Date(date).getTime() / 1000,
               category.id,
-              priority.id
-             );
-       
+              priorty.id
+            );
           }}
         >
           <>
@@ -107,6 +103,7 @@ console.log(item.description, item.title);
               numberOfLines={3}
               name="description"
               mode="outlined"
+              // value={item.description}
             />
 
             <AppDatePicker allowPress name="date" />
@@ -119,13 +116,13 @@ console.log(item.description, item.title);
             />
 
             <AppFormPicker
-              categories={priority}
+              categories={priorities}
               placeholder="Priority"
-              name="priority"
+              name="priorty"
             />
 
             <View style={styles.btnContainer} />
-            <AppSubmitButton title="Post"  />
+            <AppSubmitButton title="Post" loading={loading} />
           </>
         </AppForm>
       </View>

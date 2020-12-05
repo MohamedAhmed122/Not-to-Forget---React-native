@@ -27,7 +27,7 @@ const AppPicker = ({icon, items, selectedItem, placeholder, setSelectedItem, sty
           <FlatList
           
             style={styles.listContainer}
-            data={items._W}
+            data={items}
             keyExtractor={(items) => items.id.toString()}
             renderItem={({ item }) => (
                 <PickerItem
