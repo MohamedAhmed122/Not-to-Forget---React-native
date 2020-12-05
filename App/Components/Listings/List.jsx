@@ -5,23 +5,21 @@ import { white, yellow } from '../../Config/Colors'
 import AppCheckbox from '../AppCheckbox/AppCheckbox'
 import AppText from '../AppText/AppText'
 
-const List = ({color, title, subTitle, onPress, id, done}) => {
-    
+const List = ({ color, title, description, onPress, done, onCheck }) => {
     return (
-        <TouchableWithoutFeedback onPress={onPress} useNativeDriver={true}>
-            <View style={[styles.container, {backgroundColor: color}]}>
-                <View style={styles.textContainer}>
-                    <AppText style={styles.mainText}>{title}</AppText>
-                    <AppText style={styles.subText}>{subTitle}</AppText>
-                </View>
-                <View style={styles.check}>
-                    <AppCheckbox id={id} done={done} color={color}/>
-                </View>
-            </View>
+      <View style={[styles.container, { backgroundColor: color }]}>
+        <TouchableWithoutFeedback onPress={onPress}>
+          <View style={styles.textContainer}>
+            <AppText style={styles.mainText}>{title}</AppText>
+            <AppText style={styles.subText}>{description}</AppText>
+          </View>
         </TouchableWithoutFeedback>
-    )
-}
-
+        <View style={styles.check}>
+          <AppCheckbox color={color} done={done} onCheck={onCheck} />
+        </View>
+      </View>
+    );
+  };
 export default List
 
 const styles = StyleSheet.create({
@@ -61,12 +59,8 @@ const styles = StyleSheet.create({
         color: white,
         fontWeight:'600',
     },
-    check:{
-        // width:'100%',
-        // right:50,
-        // // position:'absolute'
-        // alignItems:'flex-end',
-        // justifyContent:'flex-end'
+    textContainer:{
+        width :'100%',
+        height:'100%'
     }
-    
 })

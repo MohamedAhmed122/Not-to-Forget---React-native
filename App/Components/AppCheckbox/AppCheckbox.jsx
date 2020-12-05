@@ -7,47 +7,27 @@ import AuthContext from '../../AuthContext/Context';
 import axios from 'axios'
 
 
-const AppCheckbox = ({color=primary, done, id}) => {
-    console.log(id);
-    const { user } = useContext(AuthContext)
-    const [check, setCheck] = useState()
+const AppCheckbox = ({ color = primary, done, onCheck }) => {
+  const [check, setCheck] = useState(done ? true : false);
 
-    const onCheck = async (
-      ) => {
-        try {
-          const { data } = await axios.patch(
-            `http://practice.mobile.kreosoft.ru/api/tasks/${id}`,
-            {
-                done :done ===0? 1: 0
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${user.api_token}`,
-              },
-            }
-          );
-          console.log(user.api_token);
-          console.log('checked', data);
-    
-        } catch (error) {
-          console.log(error, 'error in checked');
-        }
-      };
-    
-      const handleChecked = () =>{
-        setCheck(1)
-        onCheck()
-      }
-   
-    return (
-        <TouchableWithoutFeedback onPress={handleChecked}>
-            <View style={styles.container}>
-               { check && <AntDesign style={!check? styles.container : styles.clicked} name="check" size={20} color={color} />}
-            </View>
-        </TouchableWithoutFeedback>
-   
-    )
-}
+  return (
+
+      <View style={styles.container}>
+        {check && (
+          <AntDesign
+            style={!check ? styles.container : styles.clicked}
+            name="check"
+            size={20}
+            color={color}
+            onPress={() => {
+              onCheck();
+              setCheck(!check);
+            }}
+          />
+        )}
+      </View>
+  );
+};
 
 export default AppCheckbox;
 
