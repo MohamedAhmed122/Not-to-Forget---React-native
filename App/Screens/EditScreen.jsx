@@ -12,25 +12,24 @@ import AppFormPicker from '../Components/Form/AppFormPicker';
 import AppDatePicker from '../Components/AppDatePicker/AppDatePicker';
 import AuthContext from '../AuthContext/Context';
 import { getCategories, getPriority } from '../api/Requests';
+import UploadScreen from '../Components/uploadScreen/uploadScreen';
 
-// const validationSchema = Yup.object().shape({
-//   title: Yup.string().required(),
-//   description: Yup.string().required().max(120),
-//   category: Yup.string().required(),
-//   priorty: Yup.string().required(),
-//   date: Yup.date().required(),
-// });
+const validationSchema = Yup.object().shape({
+  title: Yup.string().required(),
+  description: Yup.string().required().max(120),
+  category: Yup.string().required(),
+  priority: Yup.string().required(),
+  date: Yup.date().required(),
+});
 
 const UpdateListScreen = ({ navigation, route }) => {
   const authContext = useContext(AuthContext);
   const [categories, setCategory ] = useState([]);
   const [priority, setPriority ] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
   
   const { item } = route.params;
-//   console.log(item);
-
-  // Get Api Auth Key
+console.log(item.description, item.title);
   const { user } = authContext;
 
   useEffect(()=>{
@@ -47,6 +46,7 @@ const UpdateListScreen = ({ navigation, route }) => {
     category_id,
     priority_id
   ) => {
+    setVisibleModal(true)
     try {
       const { data } = await axios.patch(
         `http://practice.mobile.kreosoft.ru/api/tasks/${item.id}`,
@@ -66,12 +66,6 @@ const UpdateListScreen = ({ navigation, route }) => {
       );
       console.log('Updated data', data);
 
-
-      // Reset Navigation Stack
-    //   navigation.reset({
-    //     index: 0,
-    //     routes: [{ name: 'Not Forget' }],
-    //   });
       navigation.goBack();
     } catch (error) {
       console.log(error, 'error is coming from update data');
@@ -81,14 +75,16 @@ const UpdateListScreen = ({ navigation, route }) => {
   return (
     <View style={styles.screen}>
       <View style={styles.container}>
+          <UploadScreen visible={visibleModal} onDone={()=>setVisibleModal(false)} />
         <AppForm
-          initialValues={{
-            title: item.title,
-            description: item.description,
-            date: new Date(item.deadline).toUTCString(),
-            category: item.category,
-            priority: item.priority,
-          }}
+            validationSchema={validationSchema}
+            initialValues={{
+                title: item.title,
+                description: item.description,
+                date: new Date(item.deadline).toUTCString(),
+                category: item.category,
+                priority: item.priority,
+            }}
         //   validationSchema={validationSchema}
           onSubmit={ async(values) => {
             const { title, description, date, category, priority } = values;
@@ -111,7 +107,6 @@ const UpdateListScreen = ({ navigation, route }) => {
               numberOfLines={3}
               name="description"
               mode="outlined"
-              // value={item.description}
             />
 
             <AppDatePicker allowPress name="date" />

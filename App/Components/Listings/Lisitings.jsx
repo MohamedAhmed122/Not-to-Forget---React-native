@@ -10,27 +10,13 @@ import Swipeable from 'react-native-gesture-handler/Swipeable'
 import AuthContext from '../../AuthContext/Context'
 import axios from 'axios'
 
-const Lisitings = ({listings}) => {
+const Lisitings = ({listings, deleteTask }) => {
 
     const { user }= useContext(AuthContext);
 
     const navigation = useNavigation()
 
-    const deleteTask = async(id, checked) =>{
-        const URL = 'http://practice.mobile.kreosoft.ru/api';
-       
-        try {
-            const config ={
-                headers :{
-                    Authorization: `Bearer ${user.api_token}`,
-                }
-            }
-            const { data } = await axios.delete(`${URL}/tasks/${id}`, config)
-            return listings.filter(list => list.id !== id )
-        } catch (error) { 
-            console.log(error, 'Error in deleting')
-        }
-    }
+    
    
     return (
         <View>
@@ -66,6 +52,7 @@ const Lisitings = ({listings}) => {
                           subTitle={item.category.name}
                           color={item.priority.color} 
                           done={item.done}
+                          id={item.id}
                       />
                  </Swipeable>
                ))

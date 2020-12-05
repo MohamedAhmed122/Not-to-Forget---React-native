@@ -5,7 +5,7 @@ import { white, yellow } from '../../Config/Colors'
 import AppCheckbox from '../AppCheckbox/AppCheckbox'
 import AppText from '../AppText/AppText'
 
-const List = ({color, title, subTitle, onPress, done}) => {
+const List = ({color, title, subTitle, onPress, id, done}) => {
     
     return (
         <TouchableWithoutFeedback onPress={onPress} useNativeDriver={true}>
@@ -15,7 +15,7 @@ const List = ({color, title, subTitle, onPress, done}) => {
                     <AppText style={styles.subText}>{subTitle}</AppText>
                 </View>
                 <View style={styles.check}>
-                    <AppCheckbox done={done} color={color}/>
+                    <AppCheckbox id={id} done={done} color={color}/>
                 </View>
             </View>
         </TouchableWithoutFeedback>

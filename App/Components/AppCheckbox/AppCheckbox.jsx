@@ -1,15 +1,46 @@
-import React, {  useState } from 'react'
+import React, {  useContext, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { primary, white } from '../../Config/Colors'
 import { AntDesign } from '@expo/vector-icons';
+import AuthContext from '../../AuthContext/Context';
+import axios from 'axios'
 
 
-const AppCheckbox = ({color=primary, done}) => {
-    const [check, setCheck] = useState(done? false : true)
+const AppCheckbox = ({color=primary, done, id}) => {
+    console.log(id);
+    const { user } = useContext(AuthContext)
+    const [check, setCheck] = useState()
+
+    const onCheck = async (
+      ) => {
+        try {
+          const { data } = await axios.patch(
+            `http://practice.mobile.kreosoft.ru/api/tasks/${id}`,
+            {
+                done :done ===0? 1: 0
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${user.api_token}`,
+              },
+            }
+          );
+          console.log(user.api_token);
+          console.log('checked', data);
+    
+        } catch (error) {
+          console.log(error, 'error in checked');
+        }
+      };
+    
+      const handleChecked = () =>{
+        setCheck(1)
+        onCheck()
+      }
    
     return (
-        <TouchableWithoutFeedback onPress={()=>setCheck(!check)}>
+        <TouchableWithoutFeedback onPress={handleChecked}>
             <View style={styles.container}>
                { check && <AntDesign style={!check? styles.container : styles.clicked} name="check" size={20} color={color} />}
             </View>

@@ -27,7 +27,7 @@ const ViewListScreen = ({navigation, route}) => {
                         })
                       }
                     />
-                    <AppText style={styles.status}>{item.Done === 0 ? 'New' : 'Done' }</AppText>
+                    <AppText style={styles.status}>{item.Done === 0 ? 'Done' : 'New' }</AppText>
                 </View>
             </View>
                 <AppText style={styles.text}>{item.description}</AppText>
