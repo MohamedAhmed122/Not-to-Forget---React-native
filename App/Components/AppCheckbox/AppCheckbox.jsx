@@ -1,17 +1,21 @@
-import React, {  useContext, useState } from 'react'
+import React, {  useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { primary, white } from '../../Config/Colors'
 import { AntDesign } from '@expo/vector-icons';
-import AuthContext from '../../AuthContext/Context';
-import axios from 'axios'
 
 
 const AppCheckbox = ({ color = primary, done, onCheck }) => {
   const [check, setCheck] = useState(done ? true : false);
 
   return (
-
+    <TouchableWithoutFeedback
+      onPress={() => {
+        onCheck();
+        setCheck(!check);
+      }}
+      disabled={check}
+    >
       <View style={styles.container}>
         {check && (
           <AntDesign
@@ -19,16 +23,12 @@ const AppCheckbox = ({ color = primary, done, onCheck }) => {
             name="check"
             size={20}
             color={color}
-            onPress={() => {
-              onCheck();
-              setCheck(!check);
-            }}
           />
         )}
       </View>
+    </TouchableWithoutFeedback>
   );
 };
-
 export default AppCheckbox;
 
 const styles = StyleSheet.create({

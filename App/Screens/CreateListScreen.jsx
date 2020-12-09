@@ -12,14 +12,15 @@ import AppFormPicker from '../Components/Form/AppFormPicker';
 
 import AppDatePicker from '../Components/AppDatePicker/AppDatePicker';
 import AuthContext, { AppContext } from '../AuthContext/Context';
-import { Button, Divider, Text, TextInput, Title } from 'react-native-paper';
 import { primary } from '../Config/Colors';
-import  appAlertBox  from '../Utility/Contast';
+// import  appAlertBox  from '../Utility/Contast';
+// import AppPickCategory from '../Components/AppCategory/AppPickCategory';
+import AppFormCategory from '../Components/Form/AppFormCategory';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required(),
   description: Yup.string().required().max(120),
-  category: Yup.string().required(),
+  // category: Yup.string().required(),
   priorty: Yup.string().required(),
   date: Yup.date().required(),
 });
@@ -66,6 +67,7 @@ const CreateListScreen = ({ navigation }) => {
     } catch (error) {
       console.log(error);
       setLoading(false);
+      console.log(error);
     }
   };
 
@@ -129,11 +131,14 @@ const CreateListScreen = ({ navigation }) => {
 
             <AppDatePicker allowPress name="date" />
 
-            <AppFormPicker
+            <AppFormCategory
               categories={categories}
               placeholder="Category"
               name="category"
-              icon="plus-square-o"
+              category={category}
+              setCategory={setCategory}
+              createCategory={createCategory}
+              loading={loading}
             />
 
             <AppFormPicker
@@ -147,7 +152,7 @@ const CreateListScreen = ({ navigation }) => {
           </>
         </AppForm>
       </View>
-      <View style={styles.categoryContainer}>
+      {/* <View style={styles.categoryContainer}>
         <Title style={{ textAlign: 'center', marginBottom: 10 }}>
           Create Category
         </Title>
@@ -172,7 +177,7 @@ const CreateListScreen = ({ navigation }) => {
         >
           Create Category
         </Button>
-      </View>
+      </View> */}
     </ScrollView>
   );
 };

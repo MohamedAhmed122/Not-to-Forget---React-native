@@ -33,7 +33,6 @@ const RegisterScreen = ({ navigation }) => {
     try {
       const { data } = await axios.post('/register', { email, password, name });
 
-      // Persist Values
       const jsonValue = JSON.stringify(data);
       await AsyncStorage.setItem('user', jsonValue);
 
@@ -83,7 +82,7 @@ const RegisterScreen = ({ navigation }) => {
               autCorrect={false}
               mode="outlined"
               textContentType="password"
-              secureTextEntry
+              // secureTextEntry
               name="password"
             />
             <AppFormField
@@ -92,7 +91,7 @@ const RegisterScreen = ({ navigation }) => {
               autCorrect={false}
               mode="outlined"
               textContentType="password"
-              secureTextEntry
+              // secureTextEntry
               name="confirmPassword"
             />
             <View style={styles.btnContainer}></View>

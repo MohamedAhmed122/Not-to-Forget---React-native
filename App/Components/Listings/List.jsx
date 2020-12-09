@@ -8,16 +8,16 @@ import AppText from '../AppText/AppText'
 const List = ({ color, title, description, onPress, done, onCheck }) => {
     return (
       <View style={[styles.container, { backgroundColor: color }]}>
-        <TouchableWithoutFeedback onPress={onPress}>
-          <View style={styles.textContainer}>
-            <AppText style={styles.mainText}>{title}</AppText>
-            <AppText style={styles.subText}>{description}</AppText>
-          </View>
-        </TouchableWithoutFeedback>
-        <View style={styles.check}>
-          <AppCheckbox color={color} done={done} onCheck={onCheck} />
+      <TouchableWithoutFeedback onPress={onPress}>
+        <View style={styles.textContainer}>
+          <AppText style={styles.mainText}>{title}</AppText>
+          <AppText style={styles.subText}>{description}</AppText>
         </View>
+      </TouchableWithoutFeedback>
+      <View style={styles.check}>
+        <AppCheckbox color={color} done={done} onCheck={onCheck} />
       </View>
+    </View>
     );
   };
 export default List
