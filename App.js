@@ -7,26 +7,27 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppNavigation from './App/Navigation/AppNavigation';
 import AuthContext from './App/AuthContext/Context';
 import AppPickCategory from './App/Components/AppCategory/AppPickCategory'
+import AppActivityIndictor from './App/Components/AppActivityIndicator/AppActivityIndicator';
 
 
 export default function App() {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // const getUserData = async () => {
-  //   try {
-  //     const userData = await AsyncStorage.getItem('user');
-  //     const parsedObject = userData !== null ? JSON.parse(userData) : null;
-  //     setUser(parsedObject);
-  //     setLoading(false);
-  //   } catch (e) {
-  //     setUser(null);
-  //     setLoading(false);
-  //   }
-  // };
+  const getUserData = async () => {
+    try {
+      const userData = await AsyncStorage.getItem('user');
+      const parsedObject = userData !== null ? JSON.parse(userData) : null;
+      setUser(parsedObject);
+      setLoading(false);
+    } catch (e) {
+      setUser(null);
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     axios.defaults.baseURL = 'http://practice.mobile.kreosoft.ru/api';
-    // getUserData();
+    getUserData();
   }, []);
 
   return (
@@ -34,7 +35,7 @@ export default function App() {
       {loading ? (
         <View style={styles.container}>
          
-          <ActivityIndicator color="#000" size="large" />
+          <AppActivityIndictor/>
         </View>
       ) : (
         <NavigationContainer>

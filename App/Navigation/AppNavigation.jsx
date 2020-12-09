@@ -1,7 +1,8 @@
 import React, { useReducer, useEffect, useContext } from 'react';
-import { StyleSheet, ActivityIndicator, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import axios from 'axios';
+import AppActivityIndictor from '../Components/AppActivityIndicator/AppActivityIndicator'
 import LisitingsScreen from '../Screens/LisitingsScreen';
 import CreateListScreen from '../Screens/CreateListScreen';
 import ViewListScreen from '../Screens/ViewListScreen';
@@ -82,7 +83,7 @@ const AppNavigation = () => {
     <AppContext.Provider value={{ state, getAppData }}>
       {state.loadingData ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator color="#000" size="large" />
+          <AppActivityIndictor visible={state.loadingData}  />
         </View>
       ) : (
         <Stack.Navigator>

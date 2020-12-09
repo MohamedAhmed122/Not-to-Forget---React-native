@@ -35,7 +35,7 @@ const ViewListScreen = ({ route, navigation }) => {
             from {new Date(item.deadline * 1000).toLocaleDateString()}
           </AppText>
         </View>
-        <AppText>{item.priority.name}</AppText>
+        <AppText style={[styles.textColor, {backgroundColor:item.priority.color}]}>{item.priority.name}</AppText>
       </View>
     </View>
   );
@@ -74,4 +74,22 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
   },
+  textColor:{
+    backgroundColor:'orange',
+    padding:7,
+    
+
+
+    shadowColor: "#000",
+    shadowOffset: {
+        width: 0,
+        height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    
+    elevation: 4,
+
+    
+  }
 });
