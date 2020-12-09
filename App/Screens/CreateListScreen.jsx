@@ -13,14 +13,13 @@ import AppFormPicker from '../Components/Form/AppFormPicker';
 import AppDatePicker from '../Components/AppDatePicker/AppDatePicker';
 import AuthContext, { AppContext } from '../AuthContext/Context';
 import { primary } from '../Config/Colors';
-// import  appAlertBox  from '../Utility/Contast';
-// import AppPickCategory from '../Components/AppCategory/AppPickCategory';
+import {useNetInfo} from "@react-native-community/netinfo";
 import AppFormCategory from '../Components/Form/AppFormCategory';
+import OfflineBar from '../Components/OfflineBar/OfflineBar';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required(),
   description: Yup.string().required().max(120),
-  // category: Yup.string().required(),
   priorty: Yup.string().required(),
   date: Yup.date().required(),
 });
@@ -34,6 +33,8 @@ const CreateListScreen = ({ navigation }) => {
 
   // Get Api Auth Key
   const { user } = authContext;
+  const netInfo = useNetInfo()
+  const netStatus = netInfo.isInternetReachable; 
 
   const createTask = async (
     title,
@@ -96,6 +97,7 @@ const CreateListScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.screen}>
       <View style={styles.container}>
+      {!netStatus && <OfflineBar />}
         <AppForm
           initialValues={{
             title: '',

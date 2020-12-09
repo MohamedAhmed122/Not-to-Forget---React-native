@@ -1,16 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Constants from 'expo-constants';
+import {useNetInfo} from "@react-native-community/netinfo";
 import AppText from '../Components/AppText/AppText';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { green, secondary } from '../Config/Colors';
+import OfflineBar from '../Components/OfflineBar/OfflineBar';
 
 const ViewListScreen = ({ route, navigation }) => {
   const item = route.params;
-
+  const netInfo = useNetInfo()
+  const netStatus = netInfo.isInternetReachable; 
   return (
     <View style={styles.screen}>
+      {!netStatus && <OfflineBar/>}
       <View style={styles.container}>
         <View>
           <AppText style={styles.mainText}>{item.title}</AppText>

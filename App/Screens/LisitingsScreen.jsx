@@ -1,8 +1,7 @@
-import React, { useState, useContext, useEffect, useReducer } from 'react';
+import React, {  useContext } from 'react';
 import {
   StyleSheet,
   View,
-  ActivityIndicator,
   ScrollView,
   RefreshControl,
 } from 'react-native';
@@ -12,7 +11,9 @@ import AddButton from '../Components/AddButton/AddButton';
 import ListingsEmpty from '../Components/Listings/ListingsEmpty';
 import Lisitings from '../Components/Listings/Lisitings';
 import AuthContext, { AppContext } from '../AuthContext/Context';
-import { appReducer, INITIAL_STATE } from '../reducers/appReducer';
+import {useNetInfo} from "@react-native-community/netinfo";
+import OfflineBar from '../Components/OfflineBar/OfflineBar';
+
 
 const LisitingsScreen = ({ navigation }) => {
   const appContext = useContext(AppContext);
@@ -22,6 +23,8 @@ const LisitingsScreen = ({ navigation }) => {
 
   // Get Api Auth Key
   const { user } = authContext;
+  const netInfo = useNetInfo()
+  const netStatus = netInfo.isInternetReachable; 
 
   const onCheck = async (taskId, checkValue) => {
     try {
@@ -59,6 +62,7 @@ const LisitingsScreen = ({ navigation }) => {
 
   return (
     <View style={styles.screen}>
+      {!netStatus && <OfflineBar />}
       <ScrollView
         refreshControl={
           <RefreshControl

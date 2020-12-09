@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, ActivityIndicator, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import axios from 'axios';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigation from './App/Navigation/AuthNavigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppNavigation from './App/Navigation/AppNavigation';
 import AuthContext from './App/AuthContext/Context';
-import AppPickCategory from './App/Components/AppCategory/AppPickCategory'
 import AppActivityIndictor from './App/Components/AppActivityIndicator/AppActivityIndicator';
 
 
