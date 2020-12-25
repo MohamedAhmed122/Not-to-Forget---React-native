@@ -1,5 +1,5 @@
 import React, { useContext, useReducer, useState } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView , Alert} from 'react-native';
 
 import Constants from 'expo-constants';
 import * as Yup from 'yup';
@@ -30,6 +30,8 @@ const CreateListScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState('');
   const { listings, categories, loadingData, priorities } = appContext.state;
+
+
 
   // Get Api Auth Key
   const { user } = authContext;
@@ -93,6 +95,33 @@ const CreateListScreen = ({ navigation }) => {
       setLoading(false);
     }
   };
+  const handleCreateTask = (values) =>{
+    const { title, description, date, category, priorty } = values;
+            createTask(
+              title,
+              description,
+              new Date(date).getTime() / 1000,
+              category.id,
+              priorty.id
+            );
+
+  }
+  const createTwoButtonAlert = (values) =>
+  Alert.alert(
+    "Are you Sure ",
+    "Event Will be created",
+    [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      },
+      { text: "OK", onPress: () => handleCreateTask(values) }
+    ],
+    { cancelable: false }
+  );
+
+
 
   return (
     <ScrollView style={styles.screen}>
@@ -107,18 +136,7 @@ const CreateListScreen = ({ navigation }) => {
             priorty: '',
           }}
           validationSchema={validationSchema}
-          onSubmit={(values) => {
-            const { title, description, date, category, priorty } = values;
-            createTask(
-              title,
-              description,
-              new Date(date).getTime() / 1000,
-              category.id,
-              priorty.id
-            );
-
-            // console.log(values, 'values');
-          }}
+          onSubmit={createTwoButtonAlert}
         >
           <>
             <AppFormField name="title" label="Title" />

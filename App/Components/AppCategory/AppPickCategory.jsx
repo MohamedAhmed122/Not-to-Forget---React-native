@@ -71,17 +71,15 @@ const AppPickCategory = ({
       <Modal animationType="slide" visible={visible}>
         <View style={styles.modalContainer}>
           <Button title="close" onPress={() => setVisible(false)} />
-          <Title style={{ textAlign: 'center', marginBottom: 10 }}>
-          Create Category
-        </Title>
-        <TextInput
-          placeholder="Category"
-          onChangeText={(text) => setCategory(text)}
-          value={category}
-          disabled={loading}
-        />
+          <TextInput
+            placeholder="Category"
+            onChangeText={(text) => setCategory(text)}
+            value={category}
+            disabled={loading}
+          />
         <View style={styles.btnContainer} />
         <AppButton
+          color={green}
           loading={loading}
           title="Create Category"
           style={{ padding: 5, borderRadius: 15 }}

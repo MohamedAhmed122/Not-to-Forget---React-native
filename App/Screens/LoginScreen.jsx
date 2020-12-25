@@ -28,10 +28,10 @@ const LoginScreen = ({ navigation }) => {
 
   const handleSubmit = async ({ email, password }) => {
     setLoading(true);
-    setLoginFailed(false);
+
     try {
       const { data } = await axios.post('/login', { email, password });
-      console.log(data, 'data');
+      // console.log(data, 'data');
 
       const jsonValue = JSON.stringify(data);
       await AsyncStorage.setItem('user', jsonValue);
@@ -69,7 +69,7 @@ const LoginScreen = ({ navigation }) => {
               textContentType="password"
               secureTextEntry
               name="password"
-              mode="outlined"
+              mode="outlined"x
             />
             <ErrorMessage
               error="Invalid email or/and password"

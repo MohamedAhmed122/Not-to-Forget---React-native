@@ -75,7 +75,7 @@ const UpdateListScreen = ({ navigation, route }) => {
       <View style={styles.container}>
         <AppForm
           initialValues={{
-            title: item.title,
+            title: "New one",
             description: item.description,
             date: new Date(item.deadline).toUTCString(),
             category: item.category,

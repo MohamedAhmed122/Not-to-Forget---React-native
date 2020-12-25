@@ -10,11 +10,14 @@ import OfflineBar from '../Components/OfflineBar/OfflineBar';
 
 const ViewListScreen = ({ route, navigation }) => {
   const item = route.params;
+
   const netInfo = useNetInfo()
   const netStatus = netInfo.isInternetReachable; 
   return (
     <View style={styles.screen}>
       {!netStatus && <OfflineBar/>}
+
+      
       <View style={styles.container}>
         <View>
           <AppText style={styles.mainText}>{item.title}</AppText>
