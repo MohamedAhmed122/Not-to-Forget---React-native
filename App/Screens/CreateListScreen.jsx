@@ -35,6 +35,7 @@ const CreateListScreen = ({ navigation }) => {
 
   // Get Api Auth Key
   const { user } = authContext;
+  
   const netInfo = useNetInfo()
   const netStatus = netInfo.isInternetReachable; 
 

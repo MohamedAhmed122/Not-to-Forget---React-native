@@ -7,11 +7,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppNavigation from './App/Navigation/AppNavigation';
 import AuthContext from './App/AuthContext/Context';
 import AppActivityIndictor from './App/Components/AppActivityIndicator/AppActivityIndicator';
+import {useNetInfo} from "@react-native-community/netinfo";
+import OfflineBar from './App/Components/OfflineBar/OfflineBar'
 
 
 export default function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+ 
+  const netInfo = useNetInfo()
+  const netStatus = netInfo.isInternetReachable; 
 
   const getUserData = async () => {
     try {
@@ -31,6 +36,7 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
+       {!netStatus && <OfflineBar/>}
       {loading ? (
         <View style={styles.container}>
          
